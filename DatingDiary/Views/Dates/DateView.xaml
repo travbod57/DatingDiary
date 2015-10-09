@@ -1,0 +1,143 @@
+﻿<base:BasePage
+    x:Class="DatingDiary.Views.Dates.DateView"
+    xmlns:tilteffect="clr-namespace:ControlTiltEffect"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:base="clr-namespace:DatingDiary.Views"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+	xmlns:star="clr-namespace:MarkHeath.StarRating;assembly=MarkHeath.StarRating"
+    xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:DatingDiary.Interactivity"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <base:BasePage.Resources>
+        <shell:ApplicationBar x:Key="DateView_Details_AppBar" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="show on map" Click="ShowOnMap_Click" />
+                <shell:ApplicationBarMenuItem Text="get directions" Click="GetDirections_Click" />
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.edit.rest.png" Text="Edit" Click="EditDateDetails_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.favs.addto.rest.png" Text="Add" Click="AddTo_Favourites_Click" />
+        </shell:ApplicationBar>
+
+		<shell:ApplicationBar x:Key="DateView_Notes_AppBar" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="Add" Click="AddNote_Click" />
+			<shell:ApplicationBarIconButton IconUri="/Images/appbar.edit.rest.png" Text="Edit" Click="EditNote_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="Delete" Click="DeleteNote_Click" />
+        </shell:ApplicationBar>
+
+		<shell:ApplicationBar x:Key="DateView_NonSelectState_Photos_AppBar" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="Choose" Click="Date_PhotoLauncher_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.manage.rest.png" Text="Manage" Click="Select_Photos_Click" />
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="DateView_SelectState_Photos_AppBar" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="Delete" Click="Delete_Photos_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.cancel.rest.png" Text="Cancel" Click="Cancel_Click" />
+        </shell:ApplicationBar>
+        
+    </base:BasePage.Resources>
+	
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+	
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- The Page Header -->
+        <ContentPresenter ContentTemplate="{StaticResource headerTemplate}"/>
+		
+		<!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+			<controls:Pivot SelectionChanged="Pivot_SelectionChanged">
+				<controls:PivotItem Header="Details" DataContext="{Binding Date}">
+					<Grid Grid.Row="1" Margin="12,0,12,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock Grid.Row="0" Text="With" Style="{ StaticResource FieldHeader}" />
+                        <TextBlock Grid.Row="1" Text="{ Binding Person.FullName}" Style="{ StaticResource FieldValue}" />
+                        <TextBlock Grid.Row="2" Text="Place" Style="{ StaticResource FieldHeader}" />
+                        <TextBlock Grid.Row="3" Text="{ Binding Venue.Name}" Style="{ StaticResource FieldValue}" />
+                        <TextBlock Grid.Row="4" Text="Date Of Meeting" Style="{ StaticResource FieldHeader}" />
+                        <TextBlock Grid.Row="5" Text="{ Binding DateOfMeeting, StringFormat=\{0:g\}}" Style="{ StaticResource FieldValue}" />
+                        <TextBlock Grid.Row="6" Text="Rating" Style="{ StaticResource FieldHeader}" />
+                        <star:StarRatingControl Grid.Row="7" Style="{ StaticResource LargeStars }" Rating="{ Binding Rating, Converter={StaticResource DoubleRatingConverter}}" IsEnabled="False" HorizontalAlignment="Left" />
+                        
+					</Grid>
+				</controls:PivotItem>
+				<controls:PivotItem Header="Notes">
+					
+					<Grid>
+
+                        <toolkit:LongListSelector x:Name="NotesLongListSelector" Visibility="{Binding ShowNotesLongListSelector}" ItemsSource="{ Binding Notes}" IsFlatList="True" ItemTemplate="{ StaticResource NoteLongListTemplate}" />
+
+						<TextBlock Visibility="{Binding ShowNotesEmptyMessage}" Text="There are no notes" />
+					</Grid>
+				</controls:PivotItem>
+				<controls:PivotItem Header="Photos">
+					<controls:PivotItem.Resources>
+						<Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+							<Setter Property="Margin" Value="5"/>
+							<Setter Property="BorderBrush" Value="White"/>
+							<Setter Property="BorderThickness" Value="1"/>
+							<Setter Property="VerticalContentAlignment" Value="Center" />
+							<Setter Property="HorizontalContentAlignment" Value="Center" />
+						</Style>
+					</controls:PivotItem.Resources>
+
+					<Grid>
+						<ListBox x:Name="PhotoListBox" ItemsSource="{ Binding Photos}" Visibility="{Binding ShowPhotosListBox}" ItemContainerStyle="{ StaticResource ListBoxItemStyle }">
+							<ListBox.ItemTemplate>
+                                <DataTemplate x:Name="dt">
+                                    <Border x:Name="brdr" BorderBrush="Black" BorderThickness="1" Width="126" Height="126">
+                                        <interactivity:Interaction.Behaviors>
+                                            <local:DeleteItemBehaviour />
+                                        </interactivity:Interaction.Behaviors>
+                                        <Grid>
+                                            <Image Source="{Binding Image}" Height="136" Width="136" Tag="{ Binding Id}" Tap="Image_Tap" tilteffect:TiltEffect.IsTiltEnabled="True" />
+                                            <Image x:Name="ImageMask" Height="126" Width="126" Source="/Images/DeleteImageMask.png" Opacity="0" Visibility="Collapsed" Tap="Image_Tap" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+							<ListBox.ItemsPanel>
+								<ItemsPanelTemplate>
+                                    <toolkit:WrapPanel ItemHeight="136" ItemWidth="136"/>
+								</ItemsPanelTemplate>
+							</ListBox.ItemsPanel>
+						</ListBox>
+						
+						<TextBlock Visibility="{Binding ShowPhotosEmptyMessage}" Text="There are no photos" />						
+					</Grid>
+
+				</controls:PivotItem>
+			</controls:Pivot>
+		</Grid>
+    </Grid>
+
+</base:BasePage>

@@ -1,0 +1,146 @@
+﻿<base:BasePage
+    x:Class="DatingDiary.Views.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:base="clr-namespace:DatingDiary.Views"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:tilteffect="clr-namespace:ControlTiltEffect"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <base:BasePage.Resources>
+        <shell:ApplicationBar x:Key="HomeView_Person_AppBar" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#3c0808">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.user.add.png" Text="PlaceHolder" Click="HomeView_Person_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" Click="HomeView_Settings_Click" />
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="HomeView_Upcoming_AppBar" IsVisible="True" IsMenuEnabled="True" BackgroundColor="#3c0808">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="TEST" Click="ApplicationBarIconButton_Click" />
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.calendar.png" Text="add date" Click="HomeView_Upcoming_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.settings.rest.png" Text="settings" Click="HomeView_Settings_Click" />
+        </shell:ApplicationBar>
+
+        <Style x:Key="ListBoxItemStyle1" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="0 0 0 10" />
+        </Style>
+
+
+
+    </base:BasePage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- The Page Header -->
+        <ContentPresenter ContentTemplate="{StaticResource headerTemplate}"/>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
+            <controls:Pivot SelectionChanged="Pivot_SelectionChanged">
+                <controls:PivotItem Header="upcoming">
+                    <Grid>
+                        <toolkit:LongListSelector x:Name="LongListUpcoming" Visibility="{Binding ShowDatesLongListPicker}" ItemsSource="{Binding GroupedDateList}" Tap="Date_Tap">
+                            <toolkit:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10" Orientation="Horizontal" tilteffect:TiltEffect.IsTiltEnabled="True">
+                                        <Rectangle Width="10" Height="Auto" Fill="Red" Margin="0 0 10 0" />
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Venue.Name}" Style="{ StaticResource LongListLargeTextStyle}" />
+                                            <TextBlock Text="{Binding Person.FullName}" Style="{StaticResource LongListSmallTextStyle}" />
+                                            <TextBlock Text="{Binding DateOfMeeting, StringFormat=\{0:g\}}" Style="{StaticResource LongListSmallTextStyle}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.ItemTemplate>
+                            <toolkit:LongListSelector.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Rectangle Height="1" Fill="DarkRed" />
+                                        <TextBlock Text="{Binding Key}" FontSize="32" Foreground="Green" />
+                                        <Rectangle Height="1" Fill="DarkRed" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.GroupHeaderTemplate>
+                        </toolkit:LongListSelector>
+
+                        <TextBlock Visibility="{Binding ShowDatesEmptyMessage}" Text="You have no scheduled dates" />
+                    </Grid>
+                </controls:PivotItem>
+
+                <controls:PivotItem Header="{Binding DatingGender}">
+                    <Grid Grid.Row="1" Margin="20,0,0,0">
+                        <toolkit:LongListSelector x:Name="PeopleListPicker" ItemsSource="{Binding GroupedPersonList}" Tap="Person_Tap">
+                            <toolkit:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" tilteffect:TiltEffect.IsTiltEnabled="True">
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="0 0 10 5">
+                                                <Image Width="70" Height="70" Source="{Binding Image}" Margin="5" />
+                                            </Border>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding FullName}" Style="{ StaticResource LongListLargeTextStyle}" />
+                                                <TextBlock Text="{Binding HomeViewItemDescription}" Style="{StaticResource LongListSmallTextStyle}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                </DataTemplate>
+                            </toolkit:LongListSelector.ItemTemplate>
+                            <toolkit:LongListSelector.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Key}" FontSize="32" Foreground="Green" />
+                                </DataTemplate>
+                            </toolkit:LongListSelector.GroupHeaderTemplate>
+                        </toolkit:LongListSelector>
+                    </Grid>
+                </controls:PivotItem>
+
+                <controls:PivotItem Header="favourites">
+                    <controls:PivotItem.Resources>
+                        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        </Style>
+                    </controls:PivotItem.Resources>
+
+                    <ListBox Grid.Row="0" x:Name="tileList" ItemsSource="{ Binding TileItems}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <toolkit:HubTile Title="{Binding Title}" Margin="3" 
+                             Notification="{Binding Notification}"
+                             DisplayNotification="{Binding DisplayNotification}"
+                             Message="{Binding Message}" 
+                             GroupTag="{Binding GroupTag}"
+                             Source="{Binding ImageUri}" Tap="HubTile_Tap" tilteffect:TiltEffect.IsTiltEnabled="True">
+                                </toolkit:HubTile>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </controls:PivotItem>
+            </controls:Pivot>
+
+        </Grid>
+    </Grid>
+
+</base:BasePage>

@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C93E93DF-D96B-4D08-8384-A34A614BE961}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingDiary", "DatingDiary\DatingDiary.csproj", "{86C67380-E83B-4E06-8DA8-D29EB24DCE52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingDiary.Model", "DatingDiary.Model\DatingDiary.Model.csproj", "{C675C659-0F92-4013-9027-BDC1C2BBC6BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingDiary.Entities", "DatingDiary.Entities\DatingDiary.Entities.csproj", "{8C5E3EDA-5DB4-433B-A401-FCFD8C4156F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveTileScheduledTaskAgent", "LiveTileScheduledTaskAgent\LiveTileScheduledTaskAgent.csproj", "{C2BC0308-D47B-4B4A-BE8E-A96FEEBE3AB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleWebServiceAPI", "GoogleWebServiceAPI\GoogleWebServiceAPI.csproj", "{D9AE2BE0-2E3A-44F4-AA28-2525EECDC7E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86C67380-E83B-4E06-8DA8-D29EB24DCE52}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C675C659-0F92-4013-9027-BDC1C2BBC6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C675C659-0F92-4013-9027-BDC1C2BBC6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C675C659-0F92-4013-9027-BDC1C2BBC6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C675C659-0F92-4013-9027-BDC1C2BBC6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5E3EDA-5DB4-433B-A401-FCFD8C4156F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5E3EDA-5DB4-433B-A401-FCFD8C4156F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5E3EDA-5DB4-433B-A401-FCFD8C4156F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5E3EDA-5DB4-433B-A401-FCFD8C4156F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BC0308-D47B-4B4A-BE8E-A96FEEBE3AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BC0308-D47B-4B4A-BE8E-A96FEEBE3AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BC0308-D47B-4B4A-BE8E-A96FEEBE3AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BC0308-D47B-4B4A-BE8E-A96FEEBE3AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9AE2BE0-2E3A-44F4-AA28-2525EECDC7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9AE2BE0-2E3A-44F4-AA28-2525EECDC7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9AE2BE0-2E3A-44F4-AA28-2525EECDC7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9AE2BE0-2E3A-44F4-AA28-2525EECDC7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

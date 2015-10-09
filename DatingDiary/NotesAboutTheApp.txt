@@ -1,0 +1,8 @@
+﻿
+On pages which are adds or edits and the animation slides in from the right if I put "AnimationContext = LayoutRoot;" in the constructor and there is a Combobox on the page the value of the selectedItem 
+won't get updated in the property or in the UI until I go to change it a second time. It always appears one step behind.
+
+WP7Contrib is an assembly whcih provides a very similar animated base class to the one in position currently (Clarity).
+
+http://wp7contrib.codeplex.com/
+http://blogs.claritycon.com/blog/2010/10/wp7-page-transitions-sample/

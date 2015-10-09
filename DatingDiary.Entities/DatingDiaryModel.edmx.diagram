@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c5d6006f3e3544c7952729b995c7871f" Name="Diagram1" >
+        <EntityTypeShape EntityType="DatingDiaryModel.Interest" Width="1.5" PointX="0.5" PointY="2" />
+        <EntityTypeShape EntityType="DatingDiaryModel.Date" Width="1.5" PointX="4.875" PointY="3.75" />
+        <EntityTypeShape EntityType="DatingDiaryModel.Person" Width="1.5" PointX="2.625" PointY="1.75" />
+        <EntityTypeShape EntityType="DatingDiaryModel.Venue" Width="1.5" PointX="6.625" PointY="5.75" />
+        <EntityTypeShape EntityType="DatingDiaryModel.Photo" Width="1.5" PointX="10" PointY="4.125" />
+        <EntityTypeShape EntityType="DatingDiaryModel.Note" Width="1.5" PointX="7.75" PointY="1.5" />
+        <AssociationConnector Association="DatingDiaryModel.PersonInterest" />
+        <AssociationConnector Association="DatingDiaryModel.PersonDate" />
+        <AssociationConnector Association="DatingDiaryModel.VenueDate" />
+        <AssociationConnector Association="DatingDiaryModel.DatePhoto" />
+        <AssociationConnector Association="DatingDiaryModel.DateNote" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

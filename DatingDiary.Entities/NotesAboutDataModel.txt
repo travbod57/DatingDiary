@@ -1,0 +1,47 @@
+﻿
+-- These were commands I used to use to generate the data model using SQL Metal. Now I can't use this because the project is in VS2012 and it doesn't have SQL CE version 3.5 available and SQL Metal only
+-- works at time of writing (30/03/2013) with SQL CE 3.5. 
+
+sqlmetal "C:\Development\WindowsPhone\FirstApp\DatingApp.sdf" /code:"C:\Development\WindowsPhone\FirstApp\FirstApp\Model\DataClasses.cs" /language:csharp /namespace:FirstApp.Model /context:DatingAppContext /pluralize
+
+sqlmetal "C:\Development\WindowsPhone\DatingApp\DatingAppDB.sdf" /code:"C:\Development\WindowsPhone\DatingApp\DatingApp.Model\DataEntities.cs" /language:csharp /namespace:DatingApp.Model /context:DatingAppContext /pluralize /entitybase:EntityBase
+
+-- Instead now the database is generated straight from the EDMX model which creates the SQL scripts which I have to execute. I also need to add this code below to the Data Entities:
+-- SQL MEtal createde the Entities before and now I manually amend them to match the DB Schema
+
+Date 
+
+public ChronoGroup ChronoGroupKey { get; set; }
+
+Person
+
+public string FullName
+{
+	get
+	{
+		return string.Format("{0} {1}", this.FirstName, this.SecondName);
+	}
+}
+
+public string HomeViewItemDescription
+{
+    get
+    {
+        if (this.Age != null && this.Town != null)
+            return string.Format("Age {0}, {1}", this.Age, this.Town);
+        else if (this.Age != null)
+            return this.Age.ToString();
+        else if (this.Age != null)
+            return this.Town;
+        else
+            return string.Empty;
+    }
+}
+
+public WriteableBitmap Image { get; set; }
+
+Photo
+
+public WriteableBitmap Image { get; set; }
+
+public bool IsSelected { get; set; }

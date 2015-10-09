@@ -1,0 +1,271 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 05/28/2013 22:07:51
+-- Generated from EDMX file: C:\Development\WP7\DatingDiary\DatingDiary.Entities\DatingDiaryModel.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    ALTER TABLE [Interests] DROP CONSTRAINT [FK_PersonInterest];
+GO
+    ALTER TABLE [People] DROP CONSTRAINT [FK_CountryPerson];
+GO
+    ALTER TABLE [Dates] DROP CONSTRAINT [FK_PersonDate];
+GO
+    ALTER TABLE [Dates] DROP CONSTRAINT [FK_VenueDate];
+GO
+    ALTER TABLE [Photos] DROP CONSTRAINT [FK_DatePhoto];
+GO
+    ALTER TABLE [Notes] DROP CONSTRAINT [FK_DateNote];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [Interests];
+GO
+    DROP TABLE [Dates];
+GO
+    DROP TABLE [Countries];
+GO
+    DROP TABLE [People];
+GO
+    DROP TABLE [Venues];
+GO
+    DROP TABLE [Photos];
+GO
+    DROP TABLE [Notes];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'Interests'
+CREATE TABLE [Interests] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Description] nvarchar(4000)  NOT NULL,
+    [PersonId] int  NOT NULL,
+    [Weighting] float  NOT NULL,
+    [Person_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Dates'
+CREATE TABLE [Dates] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DateOfMeeting] datetime  NOT NULL,
+    [PersonId] int  NOT NULL,
+    [VenueId] int  NOT NULL,
+    [Rating] float  NOT NULL,
+    [IsFavourite] bit  NULL,
+    [Person_Id] int  NOT NULL,
+    [Venue_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Countries'
+CREATE TABLE [Countries] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- Creating table 'People'
+CREATE TABLE [People] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FirstName] nvarchar(4000)  NOT NULL,
+    [SecondName] nvarchar(4000)  NULL,
+    [PhoneNumber] nvarchar(4000)  NULL,
+    [Email] nvarchar(4000)  NULL,
+    [FileName] nvarchar(4000)  NULL,
+    [DateOfBirth] datetime  NOT NULL,
+    [Age] nvarchar(4000)  NULL,
+    [Town] nvarchar(4000)  NULL,
+    [CountryId] int  NOT NULL,
+    [IsFavourite] bit  NULL,
+    [Country_Id] int  NULL
+);
+GO
+
+-- Creating table 'Venues'
+CREATE TABLE [Venues] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Latitude] float  NOT NULL,
+    [Longitude] float  NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL,
+    [Rating] float  NOT NULL,
+    [Address] nvarchar(4000)  NOT NULL,
+    [IsFavourite] bit  NULL
+);
+GO
+
+-- Creating table 'Photos'
+CREATE TABLE [Photos] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DateId] int  NOT NULL,
+    [Description] nvarchar(4000)  NOT NULL,
+    [FileName] nvarchar(4000)  NOT NULL,
+    [Width] int  NOT NULL,
+    [Height] int  NOT NULL,
+    [CreatedDate] nvarchar(4000)  NOT NULL,
+    [Date_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Notes'
+CREATE TABLE [Notes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DateId] int  NOT NULL,
+    [Content] nvarchar(4000)  NOT NULL,
+    [CreatedDate] datetime  NOT NULL,
+    [AmendedDate] datetime  NULL,
+    [Date_Id] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [Id] in table 'Interests'
+ALTER TABLE [Interests]
+ADD CONSTRAINT [PK_Interests]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Dates'
+ALTER TABLE [Dates]
+ADD CONSTRAINT [PK_Dates]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Countries'
+ALTER TABLE [Countries]
+ADD CONSTRAINT [PK_Countries]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'People'
+ALTER TABLE [People]
+ADD CONSTRAINT [PK_People]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Venues'
+ALTER TABLE [Venues]
+ADD CONSTRAINT [PK_Venues]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Photos'
+ALTER TABLE [Photos]
+ADD CONSTRAINT [PK_Photos]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Notes'
+ALTER TABLE [Notes]
+ADD CONSTRAINT [PK_Notes]
+    PRIMARY KEY ([Id] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [Person_Id] in table 'Interests'
+ALTER TABLE [Interests]
+ADD CONSTRAINT [FK_PersonInterest]
+    FOREIGN KEY ([Person_Id])
+    REFERENCES [People]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonInterest'
+CREATE INDEX [IX_FK_PersonInterest]
+ON [Interests]
+    ([Person_Id]);
+GO
+
+-- Creating foreign key on [Country_Id] in table 'People'
+ALTER TABLE [People]
+ADD CONSTRAINT [FK_CountryPerson]
+    FOREIGN KEY ([Country_Id])
+    REFERENCES [Countries]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CountryPerson'
+CREATE INDEX [IX_FK_CountryPerson]
+ON [People]
+    ([Country_Id]);
+GO
+
+-- Creating foreign key on [Person_Id] in table 'Dates'
+ALTER TABLE [Dates]
+ADD CONSTRAINT [FK_PersonDate]
+    FOREIGN KEY ([Person_Id])
+    REFERENCES [People]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonDate'
+CREATE INDEX [IX_FK_PersonDate]
+ON [Dates]
+    ([Person_Id]);
+GO
+
+-- Creating foreign key on [Venue_Id] in table 'Dates'
+ALTER TABLE [Dates]
+ADD CONSTRAINT [FK_VenueDate]
+    FOREIGN KEY ([Venue_Id])
+    REFERENCES [Venues]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VenueDate'
+CREATE INDEX [IX_FK_VenueDate]
+ON [Dates]
+    ([Venue_Id]);
+GO
+
+-- Creating foreign key on [Date_Id] in table 'Photos'
+ALTER TABLE [Photos]
+ADD CONSTRAINT [FK_DatePhoto]
+    FOREIGN KEY ([Date_Id])
+    REFERENCES [Dates]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DatePhoto'
+CREATE INDEX [IX_FK_DatePhoto]
+ON [Photos]
+    ([Date_Id]);
+GO
+
+-- Creating foreign key on [Date_Id] in table 'Notes'
+ALTER TABLE [Notes]
+ADD CONSTRAINT [FK_DateNote]
+    FOREIGN KEY ([Date_Id])
+    REFERENCES [Dates]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DateNote'
+CREATE INDEX [IX_FK_DateNote]
+ON [Notes]
+    ([Date_Id]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------
